@@ -172,4 +172,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

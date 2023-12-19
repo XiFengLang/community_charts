@@ -16,6 +16,7 @@
 /// Example of axis using statically provided ticks.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:community_charts_flutter/community_charts_flutter.dart'
@@ -76,6 +77,7 @@ class StaticallyProvidedTicks extends StatelessWidget {
       ),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -101,8 +103,10 @@ class StaticallyProvidedTicks extends StatelessWidget {
       seriesList,
       animate: animate,
       domainAxis: new charts.OrdinalAxisSpec(
-          tickProviderSpec:
-              new charts.StaticOrdinalTickProviderSpec(staticTicks)),
+        tickProviderSpec: new charts.StaticOrdinalTickProviderSpec(
+          staticTicks,
+        ),
+      ),
     );
   }
 

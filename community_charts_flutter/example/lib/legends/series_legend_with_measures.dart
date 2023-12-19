@@ -20,6 +20,7 @@
 /// to also be [endDrawArea].
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:community_charts_flutter/community_charts_flutter.dart'
@@ -63,24 +64,24 @@ class LegendWithMeasures extends StatelessWidget {
     ];
 
     final tabletSalesData = [
-      new OrdinalSales('2014', random.nextInt(100)),
-      new OrdinalSales('2015', random.nextInt(100)),
-      new OrdinalSales('2016', random.nextInt(100)),
-      new OrdinalSales('2017', random.nextInt(100)),
+      new OrdinalSales('2014', random.nextInt(100) * 1000),
+      new OrdinalSales('2015', random.nextInt(100) * 1000),
+      new OrdinalSales('2016', random.nextInt(100) * 1000),
+      new OrdinalSales('2017', random.nextInt(100) * 1000),
     ];
 
     final mobileSalesData = [
-      new OrdinalSales('2014', random.nextInt(100)),
-      new OrdinalSales('2015', random.nextInt(100)),
-      new OrdinalSales('2016', random.nextInt(100)),
-      new OrdinalSales('2017', random.nextInt(100)),
+      new OrdinalSales('2014', random.nextInt(100) * 1000),
+      new OrdinalSales('2015', random.nextInt(100) * 1000),
+      new OrdinalSales('2016', random.nextInt(100) * 1000),
+      new OrdinalSales('2017', random.nextInt(100) * 1000),
     ];
 
     final otherSalesData = [
-      new OrdinalSales('2014', random.nextInt(100)),
-      new OrdinalSales('2015', random.nextInt(100)),
-      new OrdinalSales('2016', random.nextInt(100)),
-      new OrdinalSales('2017', random.nextInt(100)),
+      new OrdinalSales('2014', random.nextInt(100) * 1000),
+      new OrdinalSales('2015', random.nextInt(100) * 1000),
+      new OrdinalSales('2016', random.nextInt(100) * 1000),
+      new OrdinalSales('2017', random.nextInt(100) * 1000),
     ];
 
     return [
@@ -110,6 +111,7 @@ class LegendWithMeasures extends StatelessWidget {
       ),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -118,6 +120,7 @@ class LegendWithMeasures extends StatelessWidget {
       seriesList,
       animate: animate,
       barGroupingType: charts.BarGroupingType.grouped,
+      primaryMeasureAxis: new charts.PercentAxisSpec(),
       // Add the legend behavior to the chart to turn on legends.
       // This example shows how to optionally show measure and provide a custom
       // formatter.
@@ -134,6 +137,9 @@ class LegendWithMeasures extends StatelessWidget {
             new charts.SeriesDatumConfig('Other', '2016'),
           ],
         ),
+        new charts.PercentInjector(
+          totalType: charts.PercentInjectorTotalType.domain,
+        ),
         // EXCLUDE_FROM_GALLERY_DOCS_END
         new charts.SeriesLegend(
           // Positions for "start" and "end" will be left and right respectively
@@ -141,7 +147,7 @@ class LegendWithMeasures extends StatelessWidget {
           // For rtl, "start" and "end" will be right and left respectively.
           // Since this example has directionality of ltr, the legend is
           // positioned on the right side of the chart.
-          position: charts.BehaviorPosition.end,
+          position: charts.BehaviorPosition.bottom,
           // By default, if the position of the chart is on the left or right of
           // the chart, [horizontalFirst] is set to false. This means that the
           // legend entries will grow as new rows first instead of a new column.
@@ -150,7 +156,7 @@ class LegendWithMeasures extends StatelessWidget {
           cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
           // Set show measures to true to display measures in series legend,
           // when the datum is selected.
-          showMeasures: true,
+          showMeasures: false,
           // Optionally provide a measure formatter to format the measure value.
           // If none is specified the value is formatted as a decimal.
           measureFormatter: (num? value) {
@@ -160,6 +166,13 @@ class LegendWithMeasures extends StatelessWidget {
       ],
     );
   }
+
+  // behaviors: [
+  // new charts.PercentInjector(
+  // totalType: charts.PercentInjectorTotalType.domain)
+  // ],
+  // // Configure the axis spec to show percentage values.
+  // primaryMeasureAxis: new charts.PercentAxisSpec(),
 
   /// Create series list with multiple series
   static List<charts.Series<OrdinalSales, String>> _createSampleData() {

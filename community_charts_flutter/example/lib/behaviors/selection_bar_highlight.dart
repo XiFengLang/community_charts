@@ -14,6 +14,7 @@
 // limitations under the License.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -62,6 +63,7 @@ class SelectionBarHighlight extends StatelessWidget {
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -79,6 +81,19 @@ class SelectionBarHighlight extends StatelessWidget {
       seriesList,
       animate: animate,
       defaultInteractions: true,
+      behaviors: [
+        // charts.DomainA11yExploreBehavior(),
+        new charts.LinePointHighlighter(
+          // 圆点的半径
+          defaultRadiusPx: 0,
+          radiusPaddingPx: 10,
+          selectionModelType: charts.SelectionModelType.info,
+          showHorizontalFollowLine:
+              charts.LinePointHighlighterFollowLineType.none,
+          showVerticalFollowLine:
+              charts.LinePointHighlighterFollowLineType.nearest,
+        ),
+      ],
     );
   }
 

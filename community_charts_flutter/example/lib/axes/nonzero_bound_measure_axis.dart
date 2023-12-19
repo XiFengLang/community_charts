@@ -17,6 +17,7 @@
 /// zero. It starts at 100 and goes to 140.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -72,17 +73,22 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
-    return new charts.TimeSeriesChart(seriesList,
-        animate: animate,
-        // Provide a tickProviderSpec which does NOT require that zero is
-        // included.
-        primaryMeasureAxis: new charts.NumericAxisSpec(
-            tickProviderSpec:
-                new charts.BasicNumericTickProviderSpec(zeroBound: false)));
+    return new charts.TimeSeriesChart(
+      seriesList,
+      animate: animate,
+      // Provide a tickProviderSpec which does NOT require that zero is
+      // included.
+      primaryMeasureAxis: new charts.NumericAxisSpec(
+        tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+          zeroBound: false,
+        ),
+      ),
+    );
   }
 
   /// Create one series with sample hard coded data.
@@ -116,5 +122,6 @@ class NonzeroBoundMeasureAxis extends StatelessWidget {
 class MyRow {
   final DateTime timeStamp;
   final int headcount;
+
   MyRow(this.timeStamp, this.headcount);
 }

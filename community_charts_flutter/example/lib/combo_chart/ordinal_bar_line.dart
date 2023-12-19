@@ -17,6 +17,7 @@
 /// third rendered as a line.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:community_charts_flutter/community_charts_flutter.dart'
@@ -92,6 +93,7 @@ class OrdinalComboBarLineChart extends StatelessWidget {
         ..setAttribute(charts.rendererIdKey, 'customLine'),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -100,13 +102,15 @@ class OrdinalComboBarLineChart extends StatelessWidget {
         animate: animate,
         // Configure the default renderer as a bar renderer.
         defaultRenderer: new charts.BarRendererConfig(
-            groupingType: charts.BarGroupingType.grouped),
+          groupingType: charts.BarGroupingType.grouped,
+        ),
         // Custom renderer configuration for the line series. This will be used for
         // any series that does not define a rendererIdKey.
         customSeriesRenderers: [
           new charts.LineRendererConfig(
-              // ID used to link series to this renderer.
-              customRendererId: 'customLine')
+            // ID used to link series to this renderer.
+            customRendererId: 'customLine',
+          )
         ]);
   }
 

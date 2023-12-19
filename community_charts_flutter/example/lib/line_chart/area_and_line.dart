@@ -16,6 +16,7 @@
 /// Line chart example
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -81,6 +82,7 @@ class AreaAndLineChart extends StatelessWidget {
         ..setAttribute(charts.rendererIdKey, 'customArea'),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -89,10 +91,11 @@ class AreaAndLineChart extends StatelessWidget {
         animate: animate,
         customSeriesRenderers: [
           new charts.LineRendererConfig(
-              // ID used to link series to this renderer.
-              customRendererId: 'customArea',
-              includeArea: true,
-              stacked: true),
+            // ID used to link series to this renderer.
+            customRendererId: 'customArea',
+            includeArea: true,
+            stacked: true,
+          ),
         ]);
   }
 
@@ -139,4 +142,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

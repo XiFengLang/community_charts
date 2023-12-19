@@ -16,6 +16,7 @@
 /// Example of a stacked area chart.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -69,38 +70,91 @@ class StackedAreaLineChart extends StatelessWidget {
       new LinearSales(3, random.nextInt(100)),
     ];
 
+    final myFakeDesktopDataB = [
+      new LinearSales(0, random.nextInt(100)),
+      new LinearSales(1, random.nextInt(100)),
+      new LinearSales(2, random.nextInt(100)),
+      new LinearSales(3, random.nextInt(100)),
+    ];
+
+    var myFakeTabletDataB = [
+      new LinearSales(0, random.nextInt(100)),
+      new LinearSales(1, random.nextInt(100)),
+      new LinearSales(2, random.nextInt(100)),
+      new LinearSales(3, random.nextInt(100)),
+    ];
+
+    var myFakeMobileDataB = [
+      new LinearSales(0, random.nextInt(100)),
+      new LinearSales(1, random.nextInt(100)),
+      new LinearSales(2, random.nextInt(100)),
+      new LinearSales(3, random.nextInt(100)),
+    ];
+
     return [
       new charts.Series<LinearSales, int>(
-        id: 'Desktop',
+        id: 'Desktop A',
+        seriesCategory: 'A',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (LinearSales sales, _) => sales.year,
         measureFn: (LinearSales sales, _) => sales.sales,
         data: myFakeDesktopData,
       ),
       new charts.Series<LinearSales, int>(
-        id: 'Tablet',
+        id: 'Tablet A',
+        seriesCategory: 'A',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (LinearSales sales, _) => sales.year,
         measureFn: (LinearSales sales, _) => sales.sales,
         data: myFakeTabletData,
       ),
       new charts.Series<LinearSales, int>(
-        id: 'Mobile',
+        id: 'Mobile A',
+        seriesCategory: 'A',
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         domainFn: (LinearSales sales, _) => sales.year,
         measureFn: (LinearSales sales, _) => sales.sales,
         data: myFakeMobileData,
       ),
+      new charts.Series<LinearSales, int>(
+        id: 'Desktop B',
+        seriesCategory: 'B',
+        colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
+        domainFn: (LinearSales sales, _) => sales.year,
+        measureFn: (LinearSales sales, _) => sales.sales,
+        data: myFakeDesktopDataB,
+      ),
+      new charts.Series<LinearSales, int>(
+        id: 'Tablet B',
+        seriesCategory: 'B',
+        colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
+        domainFn: (LinearSales sales, _) => sales.year,
+        measureFn: (LinearSales sales, _) => sales.sales,
+        data: myFakeTabletDataB,
+      ),
+      new charts.Series<LinearSales, int>(
+        id: 'Mobile B',
+        seriesCategory: 'B',
+        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        domainFn: (LinearSales sales, _) => sales.year,
+        measureFn: (LinearSales sales, _) => sales.sales,
+        data: myFakeMobileDataB,
+      ),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(seriesList,
-        defaultRenderer:
-            new charts.LineRendererConfig(includeArea: true, stacked: true),
-        animate: animate);
+    return new charts.LineChart(
+      seriesList,
+      defaultRenderer: new charts.LineRendererConfig(
+        includeArea: false,
+        stacked: false,
+      ),
+      animate: animate,
+    );
   }
 
   /// Create one series with sample hard coded data.
@@ -158,4 +212,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

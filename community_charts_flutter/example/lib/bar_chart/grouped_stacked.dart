@@ -141,7 +141,7 @@ class GroupedStackedBarChart extends StatelessWidget {
     return new charts.BarChart(
       seriesList,
       animate: animate,
-      barGroupingType: charts.BarGroupingType.groupedStacked,
+      barGroupingType: charts.BarGroupingType.grouped,
     );
   }
 

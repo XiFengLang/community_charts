@@ -14,10 +14,89 @@
 // limitations under the License.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
 import 'package:flutter/material.dart';
+
+// class CustomCircleSymbolRenderer extends charts.CircleSymbolRenderer {
+//   final size;
+//
+//   CustomCircleSymbolRenderer({this.size});
+//
+//   @override
+//   void paint(
+//     charts.ChartCanvas canvas,
+//     Rectangle<num> bounds, {
+//     List<int>? dashPattern,
+//     charts.Color? fillColor,
+//     charts.FillPatternType? fillPattern,
+//     charts.Color? strokeColor,
+//     double? strokeWidthPx,
+//   }) {
+//     super.paint(
+//       canvas,
+//       bounds,
+//       dashPattern: dashPattern,
+//       fillColor: fillColor,
+//       strokeColor: strokeColor,
+//       strokeWidthPx: strokeWidthPx,
+//     );
+//
+//     List tooltips = selectedDatum;
+//     print("datum: $tooltips");
+//     //_LineChartWidgetState.selectedDatum;
+//     String unit = "% "; // _LineChartWidgetState.unit;
+//     if (tooltips != null && tooltips.length > 0) {
+//       num tipTextLen = (tooltips[0]['text'] + unit).length;
+//       num chosen = (tooltips[1]['text'] != null)
+//           ? (((tooltips[0]['text'] + unit).length >
+//                   (tooltips[1]['text'] + unit).length)
+//               ? (tooltips[0]['text'] + unit).length
+//               : (tooltips[1]['text'] + unit).length)
+//           : (tooltips[0]['text'] + unit).length;
+//
+//       tipTextLen = chosen;
+//
+//       num rectWidth = bounds.width + tipTextLen * 8.3;
+//       // num rectHeight = bounds.height + 20 + (tooltips.length - 1) * 18;
+//       num rectHeight = bounds.height + 14 + (tooltips.length - 1) * 18;
+//       num left = bounds.left > (size?.width ?? 300) / 2
+//           ? (bounds.left > size?.width / 4
+//               ? bounds.left - rectWidth
+//               : bounds.left - rectWidth / 2)
+//           : bounds.left - 40;
+//
+//       canvas.drawRect(Rectangle(left, 0, rectWidth, rectHeight),
+//           fill: charts.Color.fromHex(code: '#666666')
+//           // fill: Color.transparent
+//           );
+//       // canvas.drawRect(
+//       //     Rectangle(bounds.left - 5, bounds.top - 30, bounds.width + 10,
+//       //         bounds.height + 10),
+//       //     fill: Color.transparent);
+//
+//       for (int i = 0; i < tooltips.length; i++) {
+//         canvas.drawPoint(
+//           point: Point(left.round() + 8, (i + 1) * 15),
+//           radius: 3,
+//           fill: tooltips[i]['color'],
+//           stroke: charts.Color.white,
+//           strokeWidthPx: 1,
+//         );
+//         ChartStyle.TextStyle textStyle = ChartStyle.TextStyle();
+//         textStyle.color = charts.Color.white;
+//         // textStyle.color = charts.Color.black;
+//         textStyle.fontSize = 13;
+//         canvas.drawText(
+//             ChartText.TextElement(tooltips[i]['text'] + unit, style: textStyle),
+//             left.round() + 15,
+//             i * 15 + 8);
+//       }
+//     }
+//   }
+// }
 
 class SelectionLineHighlight extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
@@ -62,6 +141,7 @@ class SelectionLineHighlight extends StatelessWidget {
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -86,10 +166,11 @@ class SelectionLineHighlight extends StatelessWidget {
       // an empty list. An empty list is necessary because passing in a null
       // value will be treated the same as not passing in a value at all.
       new charts.LinePointHighlighter(
-          showHorizontalFollowLine:
-              charts.LinePointHighlighterFollowLineType.none,
-          showVerticalFollowLine:
-              charts.LinePointHighlighterFollowLineType.nearest),
+        showHorizontalFollowLine:
+            charts.LinePointHighlighterFollowLineType.nearest,
+        showVerticalFollowLine:
+            charts.LinePointHighlighterFollowLineType.nearest,
+      ),
       // Optional - By default, select nearest is configured to trigger
       // with tap so that a user can have pan/zoom behavior and line point
       // highlighter. Changing the trigger to tap and drag allows the
@@ -125,4 +206,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

@@ -16,6 +16,7 @@
 /// Line chart example
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -48,11 +49,15 @@ class PointsLineChart extends StatelessWidget {
   static List<charts.Series<LinearSales, num>> _createRandomData() {
     final random = new Random();
 
+    // six element
     final data = [
       new LinearSales(0, random.nextInt(100)),
       new LinearSales(1, random.nextInt(100)),
       new LinearSales(2, random.nextInt(100)),
       new LinearSales(3, random.nextInt(100)),
+      new LinearSales(4, random.nextInt(100)),
+      new LinearSales(5, random.nextInt(100)),
+      new LinearSales(6, random.nextInt(100)),
     ];
 
     return [
@@ -65,13 +70,26 @@ class PointsLineChart extends StatelessWidget {
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(seriesList,
-        animate: animate,
-        defaultRenderer: new charts.LineRendererConfig(includePoints: true));
+    return new charts.LineChart(
+      seriesList,
+      animate: animate,
+      defaultRenderer: new charts.LineRendererConfig(
+        radiusPx: 5,
+        // false: 线条相交, false: 线条堆叠，不相交
+        stacked: true,
+        // false：只有点，没有线
+        includeLine: true,
+        // false：只有线，没有点
+        includePoints: false,
+        // 底部面积
+        includeArea: false,
+      ),
+    );
   }
 
   /// Create one series with sample hard coded data.
@@ -101,4 +119,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

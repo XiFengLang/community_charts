@@ -107,10 +107,10 @@ class BarChartWithSecondaryAxis extends StatelessWidget {
       // up.
       primaryMeasureAxis: new charts.NumericAxisSpec(
           tickProviderSpec:
-              new charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
+              new charts.BasicNumericTickProviderSpec(desiredTickCount: 4)),
       secondaryMeasureAxis: new charts.NumericAxisSpec(
           tickProviderSpec:
-              new charts.BasicNumericTickProviderSpec(desiredTickCount: 3)),
+              new charts.BasicNumericTickProviderSpec(desiredTickCount: 2)),
     );
   }
 

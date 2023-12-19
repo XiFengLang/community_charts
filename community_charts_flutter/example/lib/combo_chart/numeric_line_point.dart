@@ -22,6 +22,7 @@
 /// the same color as the line.
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:community_charts_flutter/community_charts_flutter.dart'
     as charts;
@@ -100,6 +101,7 @@ class NumericComboLinePointChart extends StatelessWidget {
         ..setAttribute(charts.rendererIdKey, 'customPoint'),
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -112,8 +114,9 @@ class NumericComboLinePointChart extends StatelessWidget {
         // Custom renderer configuration for the point series.
         customSeriesRenderers: [
           new charts.PointRendererConfig(
-              // ID used to link series to this renderer.
-              customRendererId: 'customPoint')
+            // ID used to link series to this renderer.
+            customRendererId: 'customPoint',
+          )
         ]);
   }
 
@@ -173,4 +176,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }

@@ -20,6 +20,7 @@
 /// to also be [endDrawArea].
 // EXCLUDE_FROM_GALLERY_DOCS_START
 import 'dart:math';
+
 // EXCLUDE_FROM_GALLERY_DOCS_END
 import 'package:flutter/material.dart';
 import 'package:community_charts_flutter/community_charts_flutter.dart'
@@ -29,7 +30,7 @@ import 'package:community_charts_flutter/community_charts_flutter.dart'
 ///
 /// Also shows the option to provide a custom measure formatter.
 class DatumLegendWithMeasures extends StatelessWidget {
-  final List<charts.Series<dynamic, int>> seriesList;
+  final List<charts.Series<dynamic, String>> seriesList;
   final bool animate;
 
   DatumLegendWithMeasures(this.seriesList, {this.animate = false});
@@ -51,7 +52,7 @@ class DatumLegendWithMeasures extends StatelessWidget {
   }
 
   /// Create random data.
-  static List<charts.Series<LinearSales, int>> _createRandomData() {
+  static List<charts.Series<LinearSales, String>> _createRandomData() {
     final random = new Random();
 
     final data = [
@@ -62,21 +63,38 @@ class DatumLegendWithMeasures extends StatelessWidget {
     ];
 
     return [
-      new charts.Series<LinearSales, int>(
+      new charts.Series<LinearSales, String>(
         id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
+        domainFn: (LinearSales sales, _) => sales.year.toString() + "1234568900",
         measureFn: (LinearSales sales, _) => sales.sales,
         data: data,
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
   Widget build(BuildContext context) {
-    return new charts.PieChart<int>(
+    return new charts.PieChart<String>(
       seriesList,
       animate: animate,
+      defaultRenderer: charts.ArcRendererConfig(
+        arcRendererDecorators: [
+          charts.ArcLabelDecorator(
+            labelPosition: charts.ArcLabelPosition.outside,
+            // leaderLineStyleSpec: charts.ArcLabelLeaderLineStyleSpec(
+            //   length: 10,
+            //   thickness: 1,
+            //   color: charts.ColorUtil.fromDartColor(Colors.black),
+            // ),
+            // outsideLabelStyleSpec: charts.TextStyleSpec(
+            //   lineHeight: 2,
+            //   color: charts.ColorUtil.fromDartColor(Colors.black),
+            // ),
+          ),
+        ],
+      ),
       // Add the legend behavior to the chart to turn on legends.
       // This example shows how to optionally show measure and provide a custom
       // formatter.
@@ -87,7 +105,7 @@ class DatumLegendWithMeasures extends StatelessWidget {
         // an initial selection so that measure values are shown in the gallery.
         new charts.InitialSelection(
           selectedDataConfig: [
-            new charts.SeriesDatumConfig('Sales', 0),
+            new charts.SeriesDatumConfig('Sales', 0.toString()),
           ],
         ),
         // EXCLUDE_FROM_GALLERY_DOCS_END
@@ -97,15 +115,18 @@ class DatumLegendWithMeasures extends StatelessWidget {
           // For rtl, "start" and "end" will be right and left respectively.
           // Since this example has directionality of ltr, the legend is
           // positioned on the right side of the chart.
-          position: charts.BehaviorPosition.end,
+          position: charts.BehaviorPosition.bottom,
+          outsideJustification: charts.OutsideJustification.middle,
           // By default, if the position of the chart is on the left or right of
           // the chart, [horizontalFirst] is set to false. This means that the
           // legend entries will grow as new rows first instead of a new column.
-          horizontalFirst: false,
+          horizontalFirst: true,
+          desiredMaxColumns: 3,
           // This defines the padding around each legend entry.
           cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
+          maxColumnsWidth: 100,
           // Set [showMeasures] to true to display measures in series legend.
-          showMeasures: true,
+          showMeasures: false,
           // Configure the measure value to be shown by default in the legend.
           legendDefaultMeasure: charts.LegendDefaultMeasure.firstValue,
           // Optionally provide a measure formatter to format the measure value.
@@ -119,7 +140,7 @@ class DatumLegendWithMeasures extends StatelessWidget {
   }
 
   /// Create series list with one series
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
+  static List<charts.Series<LinearSales, String>> _createSampleData() {
     final data = [
       new LinearSales(2014, 100),
       new LinearSales(2015, 75),
@@ -128,9 +149,9 @@ class DatumLegendWithMeasures extends StatelessWidget {
     ];
 
     return [
-      new charts.Series<LinearSales, int>(
+      new charts.Series<LinearSales, String>(
         id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
+        domainFn: (LinearSales sales, _) => sales.year.toString(),
         measureFn: (LinearSales sales, _) => sales.sales,
         data: data,
       )
@@ -144,4 +165,9 @@ class LinearSales {
   final int sales;
 
   LinearSales(this.year, this.sales);
+
+  @override
+  String toString() {
+    return 'LinearSales{year: $year, sales: $sales}';
+  }
 }
